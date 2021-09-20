@@ -1,0 +1,7 @@
+en:
+  respond_for:
+    message:
+      flashes:
+        action:
+          notice: Flashes succeeded
+          alert: Flashes failed

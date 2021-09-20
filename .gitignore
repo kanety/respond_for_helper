@@ -1,0 +1,9 @@
+.bundle/
+Gemfile.lock
+coverage/
+gemfiles/*.lock
+pkg/
+tmp/
+spec/dummy/db/*.sqlite3
+spec/dummy/db/schema_*.rb
+spec/dummy/log/*.log

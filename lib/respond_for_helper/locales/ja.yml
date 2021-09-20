@@ -1,0 +1,20 @@
+ja:
+  respond_for:
+    format: "%{message}%{success_num}%{failure_num}%{timestamp}"
+    message:
+      defaults:
+        default:
+          notice: 処理が完了しました。
+          alert: 処理に失敗しました。
+        create:
+          notice: 登録処理が完了しました。
+          alert: 登録処理に失敗しました。
+        update:
+          notice: 更新処理が完了しました。
+          alert: 更新処理に失敗しました。
+        destroy:
+          notice: 削除処理が完了しました。
+          alert: 削除処理に失敗しました。
+    success_num: （%{value}件成功）
+    failure_num: （%{value}件失敗）
+    timestamp: （%{value}）

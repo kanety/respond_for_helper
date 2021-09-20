@@ -1,0 +1,20 @@
+en:
+  respond_for:
+    format: "%{message}%{success_num}%{failure_num}%{timestamp}"
+    message:
+      defaults:
+        default:
+          notice: Succeeded
+          alert: Failed
+        create:
+          notice: Successfully created
+          alert: Failed to create
+        update:
+          notice: Successfully updated
+          alert: Failed to update
+        destroy:
+          notice: Successfully destroyed
+          alert: Failed to destroy
+    success_num: " (%{value} succeeded)"
+    failure_num: " (%{value} failed)"
+    timestamp: " (%{value})"
