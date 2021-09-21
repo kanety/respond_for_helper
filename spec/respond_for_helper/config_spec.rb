@@ -8,7 +8,7 @@ describe RespondForHelper::Config do
 
     after do
       RespondForHelper.configure do |config|
-        config.flash = RespondForHelper::Flash
+        config.flash = RespondForHelper::Flashes::Timestamp
       end
     end
 

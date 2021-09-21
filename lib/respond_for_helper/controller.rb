@@ -12,7 +12,8 @@ module RespondForHelper
     end
 
     def respond_for_message(type, options = {})
-      Config.flash.new(self, type, options).call
+      options = options.reverse_merge(controller_path: controller_path, action_name: action_name)
+      Config.flash.new(type, options).call
     end
 
     included do

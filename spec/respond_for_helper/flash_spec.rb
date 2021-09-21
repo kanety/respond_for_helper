@@ -1,11 +1,7 @@
-class FlashesController < Struct.new(:controller_path, :action_name)
-end
-
-describe RespondForHelper::Flash do
-  let(:controller) { FlashesController.new('flashes', 'show') }
+describe RespondForHelper::Flashes::Timestamp do
   let(:type) { :notice }
-  let(:options) { {} }
-  let(:message) { described_class.new(controller, type, options).call }
+  let(:options) { { action_name: 'show' } }
+  let(:message) { described_class.new(type, options).call }
 
   after do
     debug message
@@ -13,8 +9,8 @@ describe RespondForHelper::Flash do
 
   context 'notice' do
     context 'create' do
-      let(:controller) { FlashesController.new('flashes', 'create') }
       let(:type) { :notice }
+      let(:options) { { action_name: 'create' } }
 
       it 'generates message' do
         expect(message).to include('Successfully created')
@@ -22,8 +18,8 @@ describe RespondForHelper::Flash do
     end
 
     context 'update' do
-      let(:controller) { FlashesController.new('flashes', 'update') }
       let(:type) { :notice }
+      let(:options) { { action_name: 'update' } }
 
       it 'generates message' do
         expect(message).to include('Successfully updated')
@@ -31,8 +27,8 @@ describe RespondForHelper::Flash do
     end
 
     context 'destroy' do
-      let(:controller) { FlashesController.new('flashes', 'destroy') }
       let(:type) { :notice }
+      let(:options) { { action_name: 'destroy' } }
 
       it 'generates message' do
         expect(message).to include('Successfully destroyed')
@@ -40,8 +36,8 @@ describe RespondForHelper::Flash do
     end
 
     context 'default' do
-      let(:controller) { FlashesController.new('flashes', 'default') }
       let(:type) { :notice }
+      let(:options) { { action_name: 'default' } }
 
       it 'generates message' do
         expect(message).to include('Succeeded')
@@ -51,8 +47,8 @@ describe RespondForHelper::Flash do
 
   context 'alert' do
     context 'create' do
-      let(:controller) { FlashesController.new('flashes', 'create') }
       let(:type) { :alert }
+      let(:options) { { action_name: 'create' } }
 
       it 'generates message' do
         expect(message).to include('Failed to create')
@@ -60,8 +56,8 @@ describe RespondForHelper::Flash do
     end
 
     context 'update' do
-      let(:controller) { FlashesController.new('flashes', 'update') }
       let(:type) { :alert }
+      let(:options) { { action_name: 'update' } }
 
       it 'generates message' do
         expect(message).to include('Failed to update')
@@ -69,8 +65,8 @@ describe RespondForHelper::Flash do
     end
 
     context 'destroy' do
-      let(:controller) { FlashesController.new('flashes', 'destroy') }
       let(:type) { :alert }
+      let(:options) { { action_name: 'destroy' } }
 
       it 'generates message' do
         expect(message).to include('Failed to destroy')
@@ -78,8 +74,8 @@ describe RespondForHelper::Flash do
     end
 
     context 'default' do
-      let(:controller) { FlashesController.new('flashes', 'default') }
       let(:type) { :alert }
+      let(:options) { { action_name: 'default' } }
 
       it 'generates message' do
         expect(message).to include('Failed')
@@ -88,9 +84,8 @@ describe RespondForHelper::Flash do
   end
 
   context 'flash options' do
-    let(:controller) { FlashesController.new('flashes', 'create') }
     let(:type) { :notice }
-    let(:options) { { success_num: 10, failure_num: 20 } }
+    let(:options) { { action_name: 'create', success_num: 10, failure_num: 20 } }
 
     it 'generates message' do
       expect(message).to include('10 succeeded')
@@ -99,9 +94,8 @@ describe RespondForHelper::Flash do
   end
 
   context 'custom message' do
-    let(:controller) { FlashesController.new('flashes', 'create') }
     let(:type) { :notice }
-    let(:options) { { notice: 'Custom message' }  }
+    let(:options) { { notice: 'Custom message' } }
 
     it 'generates message' do
       expect(message).to include('Custom message')
@@ -109,8 +103,8 @@ describe RespondForHelper::Flash do
   end
 
   context 'controller specific message' do
-    let(:controller) { FlashesController.new('flashes', 'action') }
     let(:type) { :notice }
+    let(:options) { { controller_path: 'flashes', action_name: 'action' } }
 
     it 'generates message' do
       expect(message).to include('Flashes succeeded')

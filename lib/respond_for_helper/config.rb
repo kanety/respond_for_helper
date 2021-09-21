@@ -5,7 +5,7 @@ module RespondForHelper
     class_attribute :data
 
     self.data = {
-      flash: RespondForHelper::Flash,
+      flash: RespondForHelper::Flashes::Timestamp,
       formats: {
         html: RespondForHelper::Formats::Html,
         json: RespondForHelper::Formats::Json
