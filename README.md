@@ -100,16 +100,16 @@ you can use `respond_for_message` as follows:
 ```ruby
 class ItemsController < ActionController::Base
   def create
-    respond_for_mesasge :notice
+    respond_for_message :notice
     #=> Successfully created (2021-01-01 10:00)
 
-    respond_for_mesasge :notice, success_num: 10
+    respond_for_message :notice, success_num: 10
     #=> Successfully created (10 succeeded) (2021-01-01 10:00)
 
-    respond_for_mesasge :notice, action_name: :update
+    respond_for_message :notice, action_name: :update
     #=> Successfully updated (2021-01-01 10:00)
 
-    respond_for_mesasge :alert
+    respond_for_message :alert
     #=> Failed to create (2021-01-01 10:00)
   end
 end
@@ -171,7 +171,7 @@ The way of setting is same as `config.default_behaviours`.
 
 #### Format processors
 
-you can also set your own format processors as you like:
+You can also set your own format processors as you like:
 
 ```ruby
 RespondForHelper.configure do |config|
@@ -185,7 +185,7 @@ end
 
 Format processors should be extended by `RespondForHelper::Formats::Base`.
 
-you can also set your own flash message generators:
+You can also set your own flash message generators:
 
 ```ruby
 RespondForHelper.configure do |config|
@@ -194,7 +194,6 @@ end
 ```
 
 Flash message generators should be extended by `RespondForHelper::Flashes::Base`.
-
 
 ## Contributing
 
