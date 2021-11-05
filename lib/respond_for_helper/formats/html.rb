@@ -30,11 +30,19 @@ module RespondForHelper
         if behaviour[0] == :template
           message = resolve_flash(type)
           flash.now[type] = message if message
-          render resolve_template(behaviour[1]), status: :unprocessable_entity
+          render resolve_template(behaviour[1]), status: render_status
         else
           message = resolve_flash(type)
           flash[type] = message if message
           redirect_to resolve_location(behaviour[1])
+        end
+      end
+
+      def render_status
+        if succeeded?
+          :ok
+        else
+          :unprocessable_entity
         end
       end
 

@@ -5,15 +5,15 @@ describe RespondForHelper::Formats::Html, type: :request do
     end
 
     it 'create' do
-      post failure_locations_path(id: 1)
-      expect(response.status).to eq(302)
-      expect(response).to redirect_to(action: :show, id: 1)
+      post failure_templates_path(id: 1)
+      expect(response.status).to eq(422)
+      expect(response.body).to include('show')
     end
 
     it 'update' do
-      patch failure_location_path(id: 1)
-      expect(response.status).to eq(302)
-      expect(response).to redirect_to(action: :show, id: 1)
+      patch failure_template_path(id: 1)
+      expect(response.status).to eq(422)
+      expect(response.body).to include('show')
     end
   end
 end
