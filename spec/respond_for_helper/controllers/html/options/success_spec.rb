@@ -6,7 +6,7 @@ describe RespondForHelper::Formats::Html, type: :request do
 
     it 'create success' do
       post options_successes_path(success: true)
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(303)
       expect(response).to redirect_to(action: :index)
     end
 

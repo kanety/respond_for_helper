@@ -34,7 +34,7 @@ module RespondForHelper
         else
           message = resolve_flash(type)
           flash[type] = message if message
-          redirect_to resolve_location(behaviour[1])
+          redirect_to resolve_location(behaviour[1]), status: :see_other
         end
       end
 

@@ -16,25 +16,25 @@ describe RespondForHelper::Formats::Html, type: :request do
 
     it 'create' do
       post successes_path
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(303)
       expect(response).to redirect_to(action: :index)
     end
 
     it 'update' do
       patch success_path(id: 1)
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(303)
       expect(response).to redirect_to(action: :index)
     end
 
     it 'destroy' do
       delete success_path(id: 1)
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(303)
       expect(response).to redirect_to(action: :index)
     end
 
     it 'default' do
       post default_success_path(id: 1)
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(303)
       expect(response).to redirect_to(action: :index)
     end
   end
