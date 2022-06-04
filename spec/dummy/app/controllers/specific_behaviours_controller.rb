@@ -1,6 +1,10 @@
 class SpecificBehavioursController < BaseController
   self.respond_for_behaviours = {
-    location: { _default: :edit }
+    html: {
+      _default: {
+        success: { redirect: :edit }
+      }
+    }
   }
 
   def create

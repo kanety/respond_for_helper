@@ -10,7 +10,7 @@ module RespondForHelper
           f.send(format) do
             formatter = klass.new(self, item, options)
             formatter.call
-            yield if block_given? && formatter.succeeded?
+            yield if block_given? && formatter.success?
           end
         end
       end

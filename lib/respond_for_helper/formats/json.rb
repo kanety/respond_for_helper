@@ -3,44 +3,30 @@
 module RespondForHelper
   module Formats
     class Json < Base
-      def _index
-        render json: @item
+      def item
+        @item
       end
 
-      def _show
-        render json: @item
+      def item_errors
+        @item.errors
       end
 
-      def _create
-        if succeeded?
-          render json: @item, status: :created
-        else
-          render json: @item.errors, status: :unprocessable_entity
+      private
+
+      def perform
+        if @behaviour.render?
+          perform_render
+        elsif @behaviour.head?
+          perform_head
         end
       end
 
-      def _update
-        if succeeded?
-          render json: @item, status: :ok
-        else
-          render json: @item.errors, status: :unprocessable_entity
-        end
+      def perform_render
+        render @behaviour.options.merge(json: resolve_target(@behaviour.target))
       end
 
-      def _destroy
-        if succeeded?
-          head :no_content
-        else
-          head :unprocessable_entity
-        end
-      end
-
-      def default_action
-        if succeeded?
-          render json: @item, status: :ok
-        else
-          render json: @item.errors, status: :unprocessable_entity
-        end
+      def perform_head
+        head resolve_target(@behaviour.target), @behaviour.options
       end
     end
   end
