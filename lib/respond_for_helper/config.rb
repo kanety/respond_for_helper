@@ -8,7 +8,8 @@ module RespondForHelper
       flash: RespondForHelper::Flashes::Timestamp,
       formats: {
         html: RespondForHelper::Formats::Html,
-        json: RespondForHelper::Formats::Json
+        json: RespondForHelper::Formats::Json,
+        any: RespondForHelper::Formats::Any
       },
       default_behaviours: {
         html: {
@@ -49,6 +50,14 @@ module RespondForHelper
           _default: {
             success: { render: :item, status: :ok },
             failure: { render: :item_errors, status: :unprocessable_entity }
+          }
+        },
+        any: {
+          index: { render: :index },
+          show: { render: :show },
+          _default: {
+            success: { render: -> { action_name.to_sym }, status: :ok },
+            failure: { render: -> { action_name.to_sym }, status: :unprocessable_entity }
           }
         }
       },
