@@ -1,8 +1,8 @@
 class SpecificBehavioursController < BaseController
-  self.respond_for_behaviours = {
-    html: {
-      _default: {
-        success: { redirect: :edit }
+  self.respond_for_config = {
+    behaviours: {
+      html: {
+        _default: { success: { redirect: :edit } }
       }
     }
   }

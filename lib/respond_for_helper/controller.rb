@@ -6,7 +6,7 @@ module RespondForHelper
 
     def respond_for(item, options = {})
       respond_to do |f|
-        Lookup.new(self, options).call.each do |format, klass|
+        Lookups::Format.new(self, options).call.each do |format, klass|
           f.send(format) do
             formatter = klass.new(self, item, options)
             formatter.call
@@ -17,12 +17,14 @@ module RespondForHelper
     end
 
     def respond_for_message(type, options = {})
+      klass = Lookups::Flash.new(self, options).call
       options = options.reverse_merge(controller_path: controller_path, action_name: action_name)
-      Config.flash.new(type, options).call
+      klass.new(type, options).call
     end
 
     included do
-      class_attribute :respond_for_behaviours
+      class_attribute :respond_for_config
+      self.respond_for_config = {}
     end
   end
 end

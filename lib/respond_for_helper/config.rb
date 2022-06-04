@@ -5,13 +5,14 @@ module RespondForHelper
     class_attribute :data
 
     self.data = {
-      flash: RespondForHelper::Flashes::Timestamp,
-      formats: {
+      formats: [:html, :json, :any],
+      formatters: {
         html: RespondForHelper::Formats::Html,
         json: RespondForHelper::Formats::Json,
         any: RespondForHelper::Formats::Any
       },
-      default_behaviours: {
+      flasher: RespondForHelper::Flashes::Timestamp,
+      behaviours: {
         html: {
           index: { render: :index },
           show: { render: :show },
@@ -60,8 +61,7 @@ module RespondForHelper
             failure: { render: -> { action_name.to_sym }, status: :unprocessable_entity }
           }
         }
-      },
-      member_actions: [:show, :edit, :update, :destroy]
+      }
     }
 
     data.keys.each do |key|

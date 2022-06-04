@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :failure_locations
   resources :failure_templates
 
+  resources :specific_formats
   resources :specific_behaviours
 
   namespace :options do

@@ -26,7 +26,7 @@ module RespondForHelper
     end
 
     def flash?
-      !@flash.nil?
+      @flash
     end
   end
 
@@ -37,12 +37,12 @@ module RespondForHelper
       @result = result
       @options = options
 
-      @controller_behaviours = @controller.respond_for_behaviours || {}
-      @default_behaviours = Config.default_behaviours
+      @controller_behaviours = @controller.respond_for_config.fetch(:behaviours, {})
+      @default_behaviours = Config.behaviours
     end
 
     def call
-      behaviour = Behaviour.new(resolve_attributes.deep_dup)
+      behaviour = Behaviour.new(resolve_attributes)
 
       if @format == :html
         merge_html_options(behaviour)

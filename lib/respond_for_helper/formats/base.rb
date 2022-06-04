@@ -44,17 +44,23 @@ module RespondForHelper
       def resolve_target(target)
         if target.respond_to?(:call)
           @controller.instance_exec(&target)
-        elsif target.is_a?(Symbol) && respond_to?(target)
-          send(target)
-        elsif target.is_a?(Symbol) && @behaviour.redirect?
-          if target.in?(Config.member_actions)
-            url_for(action: target, id: @item)
+        elsif target.is_a?(Symbol)
+          if respond_to?(target)
+            send(target)
+          elsif @behaviour.redirect?
+            resolve_url(target)
           else
-            url_for(action: target)
+            target
           end
         else
           target
         end
+      end
+
+      def resolve_url(target)
+        url_for(action: target)
+      rescue ActionController::UrlGenerationError
+        url_for(action: target, id: @item)
       end
     end
   end
