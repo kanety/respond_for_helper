@@ -13,12 +13,10 @@ module RespondForHelper
       end
 
       def call
-        respond do
-          if respond_to?("_#{action_name}", true)
-            send("_#{action_name}")
-          else
-            default_action
-          end
+        if respond_to?("_#{action_name}", true)
+          send("_#{action_name}")
+        else
+          default_action
         end
       end
 
@@ -28,9 +26,6 @@ module RespondForHelper
         else
           Array(@item).all? { |item| item.errors.blank? }
         end
-      end
-
-      def respond
       end
 
       def default_action

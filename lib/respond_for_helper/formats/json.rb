@@ -3,12 +3,6 @@
 module RespondForHelper
   module Formats
     class Json < Base
-      def respond
-        respond_to do |format|
-          format.json { yield }
-        end
-      end
-
       def _index
         render json: @item
       end

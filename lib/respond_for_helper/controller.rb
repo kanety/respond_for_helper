@@ -5,10 +5,15 @@ module RespondForHelper
     extend ActiveSupport::Concern
 
     def respond_for(item, options = {})
-      klass = Config.formats[request.format.to_sym] || Config.formats[:html]
-      formatter = klass.new(self, item, options)
-      formatter.call
-      yield if block_given? && formatter.succeeded?
+      respond_to do |f|
+        Config.formats.each do |format, klass|
+          f.send(format) do
+            formatter = klass.new(self, item, options)
+            formatter.call
+            yield if block_given? && formatter.succeeded?
+          end
+        end
+      end
     end
 
     def respond_for_message(type, options = {})

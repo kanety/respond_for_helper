@@ -3,12 +3,6 @@
 module RespondForHelper
   module Formats
     class Html < Base
-      def respond
-        respond_to do |format|
-          format.html { yield }
-        end
-      end
-
       def _index
         render @options[:template] || :index
       end
