@@ -4,6 +4,7 @@ require 'active_support/all'
 
 require 'respond_for_helper/formats/base'
 require 'respond_for_helper/formats/html'
+require 'respond_for_helper/formats/turbo_stream'
 require 'respond_for_helper/formats/json'
 require 'respond_for_helper/formats/any'
 require 'respond_for_helper/flashes/base'

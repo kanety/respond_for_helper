@@ -7,12 +7,19 @@ module RespondForHelper
     self.data = {
       formats: [:html, :json, :any],
       formatters: {
+        turbo_stream: RespondForHelper::Formats::TurboStream,
         html: RespondForHelper::Formats::Html,
         json: RespondForHelper::Formats::Json,
         any: RespondForHelper::Formats::Any
       },
       flasher: RespondForHelper::Flashes::Timestamp,
       behaviours: {
+        turbo_stream: {
+          _default: {
+            success: { render: -> { action_name.to_sym }, status: :ok },
+            failure: { render: -> { action_name.to_sym }, status: :unprocessable_entity }
+          }
+        },
         html: {
           index: { render: :index },
           show: { render: :show },
@@ -55,11 +62,7 @@ module RespondForHelper
         },
         any: {
           index: { render: :index },
-          show: { render: :show },
-          _default: {
-            success: { render: -> { action_name.to_sym }, status: :ok },
-            failure: { render: -> { action_name.to_sym }, status: :unprocessable_entity }
-          }
+          show: { render: :show }
         }
       }
     }

@@ -11,7 +11,7 @@ module RespondForHelper
       end
 
       def call
-        formats = resolve_formats
+        formats = adjust_formats(resolve_formats.deep_dup)
         formatters = resolve_formatters
         formatters.select { |format, _| formats.include?(format) }.to_h
       end
@@ -26,6 +26,19 @@ module RespondForHelper
         else
           Config.formats
         end
+      end
+
+      def adjust_formats(formats)
+        Config.formatters.keys.each do |format|
+          if @options[format] == true
+            @options.delete(format)
+            formats.unshift(format)
+          elsif @options[format] == false
+            @options.delete(format)
+            formats.delete(format)
+          end
+        end
+        formats
       end
 
       def resolve_formatters
