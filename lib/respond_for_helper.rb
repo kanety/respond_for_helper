@@ -8,6 +8,7 @@ require 'respond_for_helper/formats/json'
 require 'respond_for_helper/flashes/base'
 require 'respond_for_helper/flashes/timestamp'
 require 'respond_for_helper/config'
+require 'respond_for_helper/lookup'
 require 'respond_for_helper/controller'
 require 'respond_for_helper/helper'
 require 'respond_for_helper/railtie' if defined?(Rails)

@@ -6,7 +6,7 @@ module RespondForHelper
 
     def respond_for(item, options = {})
       respond_to do |f|
-        Config.formats.each do |format, klass|
+        Lookup.new(self, options).call.each do |format, klass|
           f.send(format) do
             formatter = klass.new(self, item, options)
             formatter.call

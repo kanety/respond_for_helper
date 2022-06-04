@@ -13,7 +13,7 @@ describe RespondForHelper::Formats::Html, type: :request do
     it 'create failure' do
       post options_successes_path(success: false)
       expect(response.status).to eq(422)
-      expect(response.body).to include('new')
+      expect(response.body).to include('new.html')
     end
   end
 end

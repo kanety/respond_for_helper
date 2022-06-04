@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   namespace :options do
     resources :successes
     resources :blocks
+    resources :formats
   end
 end
