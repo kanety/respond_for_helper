@@ -1,8 +1,7 @@
 class SpecificFormatsController < BaseController
   self.respond_for_config = {
     formats: [:html],
-    formatters: { html: RespondForHelper::Formats::Html },
-    flasher: RespondForHelper::Flashes::Timestamp
+    formatters: { html: RespondForHelper::Formats::Html }
   }
 
   def index

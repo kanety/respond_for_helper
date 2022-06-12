@@ -4,7 +4,8 @@ class SpecificBehavioursController < BaseController
       html: {
         _default: { success: { redirect: :edit } }
       }
-    }
+    },
+    flasher: RespondForHelper::Flashes::Timestamp
   }
 
   def create
