@@ -62,7 +62,7 @@ module RespondForHelper
       attrs = {}
       attrs.merge!(resolve_attributes_for(@default_behaviours, [keys1, keys2, keys3, keys4]))
       attrs.merge!(resolve_attributes_for(@controller_behaviours, [keys1, keys2, keys3, keys4]))
-      attrs.merge!(resolve_attributes_for(@options, [keys1, keys2]))
+      attrs.merge!(resolve_attributes_for(@options, [[@format, @result], [@format]]))
       attrs.empty? ? { type: :redirect, target: :index } : attrs
     end
 
