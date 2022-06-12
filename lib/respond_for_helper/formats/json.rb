@@ -3,10 +3,6 @@
 module RespondForHelper
   module Formats
     class Json < Base
-      def item
-        @item
-      end
-
       def item_errors
         @item.errors
       end
