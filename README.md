@@ -37,9 +37,20 @@ end
 ```
 
 this action is succeeded when `@item.errors` is empty, otherwise this action is failed.
-This action returns html or json corresponding to the request format.
+This action returns html, json or any data corresponding to the request format.
 
 `respond_for` allows some options as follows:
+
+```ruby
+# Always success without checking error existence.
+respond_for @item, success: true
+
+# Enable or disable some formats.
+respond_for @item, html: true, json: true, any: false
+
+```
+
+`respond_for` also supports short options for html format:
 
 ```ruby
 # Specify redirect location when succeeded.
@@ -55,13 +66,29 @@ respond_for @item, notice: 'Create was succceeded'
 
 # Specify alert message when failed.
 respond_for @item, alert: 'Create was failed'
+```
 
-# Always success without checking error existence.
-respond_for @item, success: true
+`respond_for` also supports block like `respond_to`:
 
-# Block is called when succeeded.
-respond_for @item do
-  puts "succeeded"
+```ruby
+# Use full-customized behaviour.
+respond_for @item do |format, respond|
+  if respond.success?
+    format.html { redirect_to action: :index }
+  else
+    format.html { redirect_to action: :show }
+  end
+end
+```
+
+You can use callbacks like `after_success` or `after_failure` in the block.
+Note that the callbacks are called after running respond behaviours like `render` or `redirect`:
+
+```ruby
+# Set callbacks running after respond.
+respond_for @item do |format, respond|
+  respond.after_success { puts "succeeded" }
+  respond.after_failure { puts "failed" }
 end
 ```
 
@@ -140,20 +167,23 @@ For example:
 
 ```ruby
 RespondForHelper.configure do |config|
-  config.default_behaviours = {
-    template: {},
-    location: {},
-    failure_template: { create: :new, update: :edit, destroy: :show, _default: :show },
-    failure_location: { _default: :show }
+  config.behaviours = {
+    html: {
+      index: { render: :index },
+      show: { render: :show },
+      create: {
+        success: { redirect: :index, status: :see_other, flash: :notice },
+        failure: { render: :new, status: :unprocessable_entity, flash: :alert }
+      }
+    }
   }
 end
 ```
 
-`template` and `location` is used when current action is succeeded,
-while `failure_template` and `failure_location` is used when current action is failed.
-All of them contains action name mapping:
-the key of mapping is a current action and the value of mapping is a next action after succeeded or failed.
-`_default` is a common action which is applied to all of actions which have not specific mapping.
+`html` is a request format.
+`index`, `show`, `create` is a action name of your controller.
+`success` is used when current action is succeeded, while `failure` is used when current action is failed.
+All of them contains default behaviours which are defined as `render`, `redirect` or `head`.
 
 #### Controller-specific behaviours
 
@@ -161,13 +191,17 @@ You can also customize controller-specific behaviours:
 
 ```ruby
 class ItemsController < ActionController::Base
-  self.respond_for_behaviours = {
-    location: { _default: :show }
+  self.respond_for_config = {
+    html: {
+      create: {
+        success: { redirect: :show }
+      }
+    }
   }
 end
 ```
 
-The way of setting is same as `config.default_behaviours`.
+The way of setting is same as `config.behaviours`.
 
 #### Format processors
 
@@ -175,11 +209,12 @@ You can also set your own format processors as you like:
 
 ```ruby
 RespondForHelper.configure do |config|
-  config.formats = {
+  config.formats = [:html, :json, :any]
+  config.formatters = {
     html: RespondForHelper::Formats::Html,
-    json: RespondForHelper::Formats::Json
+    json: RespondForHelper::Formats::Json,
+    any: RespondForHelper::Formats::Any
   }
-  config.flash = RespondForHelper::Flashes::Timestamp
 end
 ```
 
@@ -189,7 +224,7 @@ You can also set your own flash message generators:
 
 ```ruby
 RespondForHelper.configure do |config|
-  config.flash = RespondForHelper::Flashes::Timestamp
+  config.flasher = RespondForHelper::Flashes::Timestamp
 end
 ```
 
