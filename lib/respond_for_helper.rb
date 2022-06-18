@@ -13,6 +13,7 @@ require 'respond_for_helper/config'
 require 'respond_for_helper/lookups/format'
 require 'respond_for_helper/lookups/flash'
 require 'respond_for_helper/behaviour'
+require 'respond_for_helper/respond'
 require 'respond_for_helper/controller'
 require 'respond_for_helper/helper'
 require 'respond_for_helper/railtie' if defined?(Rails)

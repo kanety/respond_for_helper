@@ -12,7 +12,7 @@ module RespondForHelper
         @options = options
 
         @format = self.class.name.demodulize.underscore.to_sym
-        @result = succeeded? ? :success : :failure
+        @result = @options[:success] ? :success : :failure
         @behaviour = Behaviours.new(@controller, @format, @result, @options).call
       end
 
@@ -24,19 +24,7 @@ module RespondForHelper
         end
       end
 
-      def success?
-        @result == :success
-      end
-
       private
-
-      def succeeded?
-        if @options.key?(:success)
-          @options[:success]
-        else
-          Array(@item).all? { |item| item.errors.blank? }
-        end
-      end
 
       def perform
       end
