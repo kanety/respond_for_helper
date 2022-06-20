@@ -3,6 +3,8 @@
 module RespondForHelper
   module Formats
     class Json < Base
+      self.format = :json
+
       def item_errors
         @item.errors
       end

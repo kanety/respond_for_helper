@@ -3,6 +3,8 @@
 module RespondForHelper
   module Formats
     class Html < Base
+      self.format = :html
+
       private
 
       def perform

@@ -3,6 +3,8 @@
 module RespondForHelper
   module Formats
     class Base
+      class_attribute :format
+
       attr_reader :controller, :item, :format, :result, :behaviour
       delegate :request, :render, :head, :redirect_to, :flash, :url_for, :action_name, to: :controller
 
@@ -11,7 +13,7 @@ module RespondForHelper
         @item = item
         @options = options
 
-        @format = self.class.name.demodulize.underscore.to_sym
+        @format = self.class.format.to_sym
         @result = @options[:success] ? :success : :failure
         @behaviour = Behaviours.new(@controller, @format, @result, @options).call
       end
@@ -27,6 +29,10 @@ module RespondForHelper
       private
 
       def perform
+      end
+
+      def succeeded?
+        @result == :success
       end
 
       def resolve_target(target)
