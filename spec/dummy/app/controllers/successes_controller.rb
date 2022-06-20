@@ -1,12 +1,12 @@
 class SuccessesController < BaseController
   def index
     @items = [Item.new(id: 1), Item.new(id: 2)]
-    respond_for @items
+    respond_for @items, any: true
   end
 
   def show
     @item = Item.new(id: params[:id])
-    respond_for @item
+    respond_for @item, any: true
   end
 
   def create

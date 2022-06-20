@@ -5,7 +5,7 @@ module RespondForHelper
     class_attribute :data
 
     self.data = {
-      formats: [:html, :json, :any],
+      formats: [:html, :json],
       formatters: {
         turbo_stream: RespondForHelper::Formats::TurboStream,
         html: RespondForHelper::Formats::Html,
