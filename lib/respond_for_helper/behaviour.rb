@@ -85,27 +85,33 @@ module RespondForHelper
     def merge_html_options(behaviour)
       if @result == :success
         if @options[:template]
-          behaviour.type = :render
+          change_to_render(behaviour) if behaviour.type != :render
           behaviour.target = @options[:template]
-          behaviour.options[:status] = :ok
         end
         if @options[:location]
-          behaviour.type = :redirect
+          change_to_redirect(behaviour) if behaviour.type != :redirect
           behaviour.target = @options[:location]
-          behaviour.options[:status] = :see_other
         end
       else
         if @options[:failure_template]
-          behaviour.type = :render
+          change_to_render(behaviour) if behaviour.type != :render
           behaviour.target = @options[:failure_template]
-          behaviour.options[:status] = :unprocessable_entity
         end
         if @options[:failure_location]
-          behaviour.type = :redirect
+          change_to_redirect(behaviour) if behaviour.type != :redirect
           behaviour.target = @options[:failure_location]
-          behaviour.options[:status] = :see_other
         end
       end
+    end
+
+    def change_to_render(behaviour)
+      behaviour.type = :render
+      behaviour.options[:status] = @result == :success ? :ok : :unprocessable_entity
+    end
+
+    def change_to_redirect(behaviour)
+      behaviour.type = :redirect
+      behaviour.options[:status] = :see_other
     end
   end
 end
