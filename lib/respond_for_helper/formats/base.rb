@@ -37,7 +37,7 @@ module RespondForHelper
 
       def resolve_target(target)
         if target.respond_to?(:call)
-          instance_exec(&target)
+          @controller.instance_exec(&target)
         elsif target.is_a?(Symbol)
           if respond_to?(target)
             send(target)
