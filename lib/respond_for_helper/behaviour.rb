@@ -92,6 +92,9 @@ module RespondForHelper
           change_to_redirect(behaviour) if behaviour.type != :redirect
           behaviour.target = @options[:location]
         end
+        if @options[:status]
+          behaviour.options[:status] = @options[:status]
+        end
       else
         if @options[:failure_template]
           change_to_render(behaviour) if behaviour.type != :render
@@ -100,6 +103,9 @@ module RespondForHelper
         if @options[:failure_location]
           change_to_redirect(behaviour) if behaviour.type != :redirect
           behaviour.target = @options[:failure_location]
+        end
+        if @options[:failure_status]
+          behaviour.options[:status] = @options[:failure_status]
         end
       end
     end

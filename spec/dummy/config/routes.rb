@@ -17,8 +17,10 @@ Rails.application.routes.draw do
     resources :successes
     resources :success_locations
     resources :success_templates
+    resources :success_statuses
     resources :failure_locations
     resources :failure_templates
+    resources :failure_statuses
     resources :blocks
     resources :formats
   end
