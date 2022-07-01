@@ -1,4 +1,4 @@
-class SuccessTemplatesController < BaseController
+class Options::SuccessTemplatesController < BaseController
   def create
     @item = Item.new(id: params[:id])
     respond_for @item, template: -> { :show }
