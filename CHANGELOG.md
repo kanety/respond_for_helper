@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+
+* Use `Time.zone.now` if possible.
+
 ## 1.1.0
 
 * Add `formats` option to `respond_for`.
