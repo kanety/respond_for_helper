@@ -8,7 +8,11 @@ module RespondForHelper
       @options = options
 
       unless @options.key?(:success)
-        @options[:success] = Array(item).all? { |item| item.errors.blank? }
+        if @controller.request.get?
+          @options[:success] = true
+        else
+          @options[:success] = Array(item).all? { |item| item.errors.blank? }
+        end
       end
 
       @callbacks = {}
