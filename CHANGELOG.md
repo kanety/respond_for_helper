@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.2
+
+* Skip checking errors when request method is get.
+
 ## 1.1.1
 
 * Use `Time.zone.now` if possible.
