@@ -7,19 +7,22 @@ module RespondForHelper
       @item = item
       @options = options
 
-      unless @options.key?(:success)
-        if @controller.request.get?
-          @options[:success] = true
-        else
-          @options[:success] = Array(item).all? { |item| item.errors.blank? }
-        end
-      end
-
+      @success = check_success
       @callbacks = {}
     end
 
+    def check_success
+      if  @options.key?(:success)
+        @options[:success]
+      elsif @controller.request.get?
+        true
+      else
+        Array(@item).all? { |item| item.errors.blank? }
+      end
+    end
+
     def success?
-      @options[:success]
+      @success
     end
 
     def before_success(&block)
@@ -68,7 +71,7 @@ module RespondForHelper
 
     def formatters
       Lookups::Format.new(@controller, @options).call.map do |_, klass|
-        klass.new(@controller, @item, @options)
+        klass.new(@controller, @item, @success, @options)
       end
     end
   end

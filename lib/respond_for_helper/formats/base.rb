@@ -8,13 +8,13 @@ module RespondForHelper
       attr_reader :controller, :item, :format, :result, :behaviour
       delegate :request, :render, :head, :redirect_to, :flash, :url_for, :action_name, to: :controller
 
-      def initialize(controller, item, options)
+      def initialize(controller, item, success, options)
         @controller = controller
         @item = item
+        @result = success ? :success : :failure
         @options = options
 
         @format = self.class.format.to_sym
-        @result = @options[:success] ? :success : :failure
         @behaviour = Behaviours.new(@controller, @format, @result, @options).call
       end
 
