@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.3
+
+* Set flash message before render or redirect.
+
 ## 1.1.2
 
 * Skip checking errors when request method is get.
