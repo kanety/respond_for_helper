@@ -8,14 +8,14 @@ module RespondForHelper
       private
 
       def perform
+        if @behaviour.flash? && !request.xhr?
+          perform_flash
+        end
+
         if @behaviour.render?
           perform_render
         elsif @behaviour.redirect?
           perform_redirect
-        end
-
-        if @behaviour.flash? && !request.xhr?
-          perform_flash
         end
       end
 
