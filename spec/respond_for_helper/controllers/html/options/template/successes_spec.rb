@@ -5,13 +5,13 @@ describe RespondForHelper::Formats::Html, type: :request do
     end
 
     it 'create' do
-      post options_success_templates_path(id: 1)
+      post options_template_successes_path(id: 1)
       expect(response.status).to eq(200)
       expect(response.body).to include('show.html')
     end
 
     it 'update' do
-      patch options_success_template_path(id: 1)
+      patch options_template_success_path(id: 1)
       expect(response.status).to eq(200)
       expect(response.body).to include('show.html')
     end

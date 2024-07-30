@@ -1,4 +1,4 @@
-class Options::SuccessLocationsController < BaseController
+class Options::Location::SuccessesController < BaseController
   def create
     @item = Item.new(id: params[:id])
     respond_for @item, location: -> { url_for(action: :show, id: @item.id) }

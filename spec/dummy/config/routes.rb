@@ -15,14 +15,21 @@ Rails.application.routes.draw do
 
   namespace :options do
     resources :successes
-    resources :success_locations
-    resources :success_templates
-    resources :success_statuses
-    resources :failure_locations
-    resources :failure_templates
-    resources :failure_statuses
     resources :blocks
     resources :formats
+
+    namespace :location do
+      resources :successes
+      resources :failures
+    end
+    namespace :template do
+      resources :successes
+      resources :failures
+    end
+    namespace :status do
+      resources :successes
+      resources :failures
+    end
   end
 
   namespace :turbo do

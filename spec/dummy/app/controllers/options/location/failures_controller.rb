@@ -1,4 +1,4 @@
-class Options::FailureLocationsController < BaseController
+class Options::Location::FailuresController < BaseController
   def create
     @item = Item.new(id: params[:id])
     @item.errors.add(:base, "error")
