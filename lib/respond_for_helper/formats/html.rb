@@ -29,7 +29,7 @@ module RespondForHelper
 
       def perform_flash
         key = @behaviour.flash
-        flash_content[key] = @controller.respond_for_message(key, @options)
+        flash_content[key] ||= @controller.respond_for_message(key, @options)
       end
 
       def flash_content

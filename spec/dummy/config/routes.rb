@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   resources :specific_formats
   resources :specific_behaviours
 
+  namespace :flash do
+    resources :successes
+    resources :failures
+  end
+
   namespace :options do
     resources :successes
     resources :blocks
