@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.0
+
+* Add options for custom flash message.
+* Respect original flash message.
+
 ## 1.1.3
 
 * Set flash message before render or redirect.
