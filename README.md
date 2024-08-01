@@ -54,18 +54,25 @@ respond_for @item, html: true, json: true, any: false
 
 ```ruby
 # Specify redirect location when succeeded.
-# The value should be one of string, symbol (action name) or proc.
+# The value should be one of symbol (action name), string or proc.
+respond_for @item, location: :index
 respond_for @item, location: url_for(@item)
+respond_for @item, location: -> { url_for(@item) }
 
 # Specify template when failed.
 # The value should be one of symbol (action name) or proc.
 respond_for @item, failure_template: :some_template
+respond_for @item, failure_template: -> { :some_template }
 
-# Specify notice message when succeeded.
+# Specify notice message when succeeded by symbol, string or proc.
+respond_for @item, notice: :notice
 respond_for @item, notice: 'Create was succceeded'
+respond_for @item, notice: -> { 'Create was succceeded' }
 
-# Specify alert message when failed.
+# Specify alert message when failed by symbol, string or proc.
+respond_for @item, alert: :alert
 respond_for @item, alert: 'Create was failed'
+respond_for @item, alert: -> { 'Create was failed' }
 ```
 
 `respond_for` also supports block like `respond_to`:
