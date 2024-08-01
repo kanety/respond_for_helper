@@ -28,8 +28,19 @@ module RespondForHelper
       end
 
       def perform_flash
-        key = @behaviour.flash
-        flash_content[key] ||= @controller.respond_for_message(key, @options)
+        flash_content[@behaviour.flash] ||= flash_message
+      end
+
+      def flash_message
+        if @behaviour.flash_message.is_a?(Proc)
+          @controller.instance_exec(&@behaviour.flash_message)
+        elsif @behaviour.flash_message.is_a?(Symbol)
+          @controller.respond_for_message(@behaviour.flash_message, @options)
+        elsif @behaviour.flash_message.is_a?(String)
+          @behaviour.flash_message
+        else
+          @controller.respond_for_message(@behaviour.flash, @options)
+        end
       end
 
       def flash_content

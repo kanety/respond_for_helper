@@ -35,6 +35,10 @@ Rails.application.routes.draw do
       resources :successes
       resources :failures
     end
+    namespace :flash do
+      resources :successes
+      resources :failures
+    end
   end
 
   namespace :turbo do

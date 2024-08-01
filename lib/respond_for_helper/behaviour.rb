@@ -4,12 +4,13 @@ module RespondForHelper
   class Behaviour
     TYPES = [:render, :redirect, :head]
 
-    attr_accessor :type, :target, :flash, :options
+    attr_accessor :type, :target, :flash, :flash_message, :options
 
     def initialize(attrs)
       @type = attrs.delete(:type)
       @target = attrs.delete(:target)
       @flash = attrs.delete(:flash)
+      @flash_message = attrs.delete(:flash_message)
       @options = attrs
     end
 
@@ -46,6 +47,7 @@ module RespondForHelper
 
       if @format == :html
         merge_html_options(behaviour)
+        merge_flash_options(behaviour)
       end
 
       behaviour
@@ -107,6 +109,12 @@ module RespondForHelper
         if @options[:failure_status]
           behaviour.options[:status] = @options[:failure_status]
         end
+      end
+    end
+
+    def merge_flash_options(behaviour)
+      if @options[behaviour.flash]
+        behaviour.flash_message = @options[behaviour.flash]
       end
     end
 

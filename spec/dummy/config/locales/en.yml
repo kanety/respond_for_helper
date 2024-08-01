@@ -5,3 +5,7 @@ en:
         action:
           notice: Flashes succeeded
           alert: Flashes failed
+      defaults:
+        default:
+          custom_notice: Custom notice
+          custom_alert: Custom alert
