@@ -4,8 +4,8 @@ A rails helper for responding request format.
 
 ## Dependencies
 
-* ruby 2.3+
-* rails 5.0+
+* ruby 3.0+
+* rails 7.0+
 
 ## Installation
 
